@@ -1,11 +1,11 @@
 import java.util.Random;
 
-public class professor {
+public class Professor {
     Random rd = new Random();
     private String nome;
     private int id;
 
-    public professor(String nome) {
+    public Professor(String nome) {
         this.nome = nome;
         this.id = rd.nextInt(1000);
     }
@@ -25,4 +25,10 @@ public class professor {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }
+

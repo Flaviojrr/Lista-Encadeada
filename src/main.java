@@ -1,11 +1,11 @@
-import com.sun.tools.javac.Main;
-
 import java.util.Scanner;
 
 public class main {
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        ListaEncadeada<professor> lista = new ListaEncadeada<>();
+        ListaEncadeada<Professor> lista = new ListaEncadeada<>();
+        ListaEncadeada<Aluno> lista2 = new ListaEncadeada<>();
+        ListaEncadeada<Integer> lista3 = new ListaEncadeada<>();
         System.out.println("///// Atividade /////"+
                 "\n(1)Questão 1"+
                 "\n(2)Questão 2"+
@@ -27,7 +27,7 @@ public class main {
                     int op2 = sc.nextInt();
                     switch (op2){
                         case 1:
-                            addNome(lista);
+                            addNomeProfessor(lista);
                             break;
                         case 2:
                             removerNome(lista);
@@ -41,45 +41,85 @@ public class main {
                         case 5:
                             apagarLista(lista);
                             break;
+                        case 6:
+                            printLista(lista);
+                            break;
                     }
                     break;
-//            case 2:
-//                System.out.println("//// Questão 2 ////"+
-//                        "\n(1)Adicionar"+
-//                        "\n(2)Remover"+
-//                        "\n(3)Pesquisar"+
-//                        "\n(4)Listar"+
-//                        "\n(5)Ordem alfabética"+);
-//                int op2 = sc.nextInt();
-//                switch (op2){
-//                    case 1:
-//                        addNome(lista);
-//                        break;
-//                    case 2:
-//                        removerNome(lista);
-//                        break;
-//                    case 3:
-//                        verificarTamanho(lista);
-//                        break;
-//                    case 4:
-//                        verificarLista(lista);
-//                        break;
-//                }
-//            break;
+                case 2:
+                    System.out.println("//// Questão 2 ////"+
+                            "\n(1)Adicionar"+
+                            "\n(2)Remover"+
+                            "\n(3)Pesquisar"+
+                            "\n(4)Listar"+
+                            "\n(5)Ordem alfabética");
+                    int op3 = sc.nextInt();
+                switch (op3){
+                    case 1:
+                        addAluno(lista2);
+                        break;
+                    case 2:
+                        removerNome(lista2);
+                        break;
+                    case 3:
+                        pesquisarAluno(lista2);
+                        break;
+                    case 4:
+                        printLista(lista2);
+                        break;
+                }
+                    break;
+                case 3:
+                    System.out.println("//// Questão 3 ////"+
+                            "\n(1)Adicionar"+
+                            "\n(2)Listar");
+                    int op4 = sc.nextInt();
+                    switch (op4){
+                        case 1:
+                            addInt(lista3);
+                            break;
+                        case 2:
+                            printListaInt(lista3);
+                            break;
+                    }
+                    break;
             }
         }while (op!=6);
 
     }
-    public static void addNome(ListaEncadeada lista){
+    public static void addNomeProfessor(ListaEncadeada lista){
             System.out.println("Nome do professor:");
             String novoElemento = sc.next();
-            professor nomeProfessor = new professor(novoElemento);
+            Professor nomeProfessor = new Professor(novoElemento);
             lista.adicionar(nomeProfessor);
     }
+    public static void addAluno(ListaEncadeada lista2){
+        System.out.println("Nome do aluno:");
+        String nomeAluno = sc.next();
+        System.out.println("Idade:");
+        int idadeAluno = sc.nextInt();
+        System.out.println("Email:");
+        String emailAluno = sc.next();
+        Aluno novoAluno = new Aluno(nomeAluno,idadeAluno,emailAluno);
+        lista2.adicionar(novoAluno);
+    }
+    public static void addInt(ListaEncadeada lista3){
+        System.out.println("Numero inteiro:");
+        int addNumeroInt = sc.nextInt();
+        lista3.adicionarInt(addNumeroInt);
+    }
     public static void removerNome(ListaEncadeada lista){
-        System.out.println("Nome do professor para remoção da lista:");
-        String elementoRemocao = sc.next();
-        lista.remover(elementoRemocao);
+        lista.remover();
+        System.out.println("Removido com sucesso!!!");
+    }
+    public static void removerAluno(ListaEncadeada lista2){
+        lista2.remover();
+        System.out.println("Removido com sucesso!!!");
+    }
+    public static void pesquisarAluno(ListaEncadeada lista2){
+        System.out.println("Nome aluno para pesquisa:");
+        String alunoPesquisa = sc.next();
+        System.out.println(lista2.buscarRecursivamente(alunoPesquisa));
     }
     public static void verificarTamanho(ListaEncadeada lista){
         System.out.println("O tamanho da lista é de: "+lista.getTamanho());
@@ -90,5 +130,11 @@ public class main {
     public static void apagarLista(ListaEncadeada lista){
         lista.apagarLista();
         System.out.println("Lista apagada com sucesso!!!");
+    }
+    public static void printLista(ListaEncadeada lista){
+        lista.print();
+    }
+    public static void printListaInt(ListaEncadeada lista){
+        lista.printInt();
     }
 }

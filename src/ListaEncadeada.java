@@ -17,6 +17,22 @@ public class ListaEncadeada<T> {
         }
         this.tamanho++;
     }
+    public void adicionarInt(T elemento){
+        No<T> celula = new No<T>();
+        celula.setElemento(elemento);
+        if(primeiro==null && ultimo==null && tamanho<15){
+            this.primeiro=celula;
+            this.ultimo=celula;
+            this.tamanho++;
+        }else if(tamanho<15){
+            this.ultimo.setProximo(celula);
+            this.ultimo=celula;
+            this.tamanho++;
+        }
+        else{
+            System.out.println("Tamanho maximo atingido!!!");
+        }
+    }
 
     public boolean temProximo() {
         if (this.primeiro == null) {
@@ -36,7 +52,7 @@ public class ListaEncadeada<T> {
         }
         return recuperarPenultimo(celula.getProximo());
     }
-    public void remover(T elemento){
+    public void remover(){
         if(primeiro.getProximo()!=null){
             No<T> celula = this.recuperarPenultimo(primeiro);
             ultimo=celula;
@@ -60,16 +76,69 @@ public class ListaEncadeada<T> {
     }
 
     public void apagarLista(){
-        for(posicaoAtual=primeiro; posicaoAtual!=null;){
-            No<T> proximo = posicaoAtual.getProximo();
+        for (No<T> atual = this.primeiro; posicaoAtual != null;) {
+            No<T> proximo = primeiro.getProximo();
             posicaoAtual.setElemento(null);
             posicaoAtual.setProximo(null);
-        };
-        this.primeiro=null;
-        this.ultimo=null;
-        this.tamanho=0;
+            posicaoAtual = proximo;
+        }
+        this.primeiro = null;
+        this.ultimo = null;
+        this.tamanho = 0;
+    }
+    public void print(){
+        No<T> aux =  primeiro;
+        if(aux!=null){
+            while(aux!=null){
+                System.out.println(aux.getElemento()+" ");
+                aux=aux.getProximo();
+            }
+        }else{
+            System.out.println("Não consigo imprimir, pois a lista está vazia!!!");
+        }
+        System.out.println();
+    }
+    public void printInt(){
+        No<T> aux =  primeiro;
+        int valor=1;
+        if(aux!=null){
+            while(aux!=null){
+                System.out.println(aux.getElemento()+" "+"\nPosição:"+valor);
+                aux=aux.getProximo();
+                valor++;
+            }
+        }else{
+            System.out.println("Não consigo imprimir, pois a lista está vazia!!!");
+        }
+        System.out.println();
+    }
+    public boolean pesquisar(T alunoPesquisa){
+        No<T> aux = primeiro;
+        while(aux!=null){
+            if(aux.getElemento().equals(alunoPesquisa)){
+                System.out.println("Aluno encontrado!!!");
+                return true;
+            }
+            aux=aux.getProximo();
+        }
+        System.out.println("Nenhum aluno encontrado!!!");
+        return false;
+    }
+    public boolean buscarRecursivamente(T elemento) {
+        return buscarRecursivamente(primeiro, elemento);
     }
 
+    private boolean buscarRecursivamente(No<T> atual, T elemento) {
+        if (atual == null) {
+            return false; // Chegamos ao final da lista, elemento não encontrado.
+        }
+
+        if (atual.getElemento().equals(elemento)) {
+            return true; // Elemento encontrado.
+        }
+
+        return buscarRecursivamente(atual.getProximo(), elemento);
+    }
     public No<T> getPrimeiro() {
         return primeiro;
     }
@@ -98,16 +167,5 @@ public class ListaEncadeada<T> {
         this.tamanho = tamanho;
     }
 
-    public void print(){
-        int i=0;
-        if(primeiro==null){
-            System.out.println("Lista vazia");
-        }else{
-            posicaoAtual = primeiro;
-            while(i<tamanho){
-                System.out.println(" "+posicaoAtual.getProximo());
-                posicaoAtual = posicaoAtual.getProximo();
-            }
-        }
-    }
+
 }
