@@ -33,6 +33,38 @@ public class ListaEncadeada<T> {
             System.out.println("Tamanho maximo atingido!!!");
         }
     }
+    public void adicionarIntComeco(T elemento){
+        No<T> celula = new No<T>();
+        celula.setElemento(elemento);
+        if(primeiro==null && ultimo==null && tamanho<15){
+            this.primeiro=celula;
+            this.ultimo=celula;
+            this.tamanho++;
+        }else if(tamanho<7){
+            celula.setProximo(primeiro);
+            primeiro=celula;
+            this.tamanho++;
+        }
+        else{
+            System.out.println("Tamanho maximo atingido!!!");
+        }
+    }
+    public void adicionarIntFim(T elemento){
+        No<T> celula = new No<T>();
+        celula.setElemento(elemento);
+        if(primeiro==null && ultimo==null && tamanho<15){
+            this.primeiro=celula;
+            this.ultimo=celula;
+            this.tamanho++;
+        }else if(tamanho<7){
+            this.ultimo.setProximo(celula);
+            this.ultimo=celula;
+            this.tamanho++;
+        }
+        else{
+            System.out.println("Tamanho maximo atingido!!!");
+        }
+    }
 
     public boolean temProximo() {
         if (this.primeiro == null) {
@@ -76,12 +108,6 @@ public class ListaEncadeada<T> {
     }
 
     public void apagarLista(){
-        for (No<T> atual = this.primeiro; posicaoAtual != null;) {
-            No<T> proximo = primeiro.getProximo();
-            posicaoAtual.setElemento(null);
-            posicaoAtual.setProximo(null);
-            posicaoAtual = proximo;
-        }
         this.primeiro = null;
         this.ultimo = null;
         this.tamanho = 0;
@@ -103,7 +129,7 @@ public class ListaEncadeada<T> {
         int valor=1;
         if(aux!=null){
             while(aux!=null){
-                System.out.println(aux.getElemento()+" "+"\nPosição:"+valor);
+                System.out.print(aux.getElemento()+" ");
                 aux=aux.getProximo();
                 valor++;
             }
@@ -127,16 +153,13 @@ public class ListaEncadeada<T> {
     public boolean buscarRecursivamente(T elemento) {
         return buscarRecursivamente(primeiro, elemento);
     }
-
     private boolean buscarRecursivamente(No<T> atual, T elemento) {
         if (atual == null) {
             return false; // Chegamos ao final da lista, elemento não encontrado.
         }
-
         if (atual.getElemento().equals(elemento)) {
             return true; // Elemento encontrado.
         }
-
         return buscarRecursivamente(atual.getProximo(), elemento);
     }
     public No<T> getPrimeiro() {
